@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        <?php
+            // Connexion à la base de données MySQL
+            $servername = "localhost";
+            $username = "votre_nom_utilisateur";
+            $password = "votre_mot_de_passe";
+            $dbname = "nom_de_votre_base_de_donnees";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Vérifier la connexion
+            if ($conn->connect_error) {
+                die("La connexion à la base de données a échoué : " . $conn->connect_error);
+            } else {
+                echo "Connexion à la base de données réussie.";
+            }
+
+            $conn->close();
+        ?>
+    </body>
+</html>

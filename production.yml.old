@@ -3,117 +3,68 @@
   become: yes
   tasks:
     - name: Créer le répertoire PHP-FPM s'il n'existe pas
-  file:
-    path: /etc/php/7.4/fpm
-    state: directory
-  tags: php
+      file:
+        path: /etc/php/7.4/fpm
+        state: directory
+      tags: php
 
-       - name: Installer nginx sur les machines de production
+    - name: Installer nginx sur les machines de production
       apt:
         name: nginx
         state: present
       tags: nginx
 
-       - name: Copier le fichier de configuration nginx pour la production
+    - name: Copier le fichier de configuration nginx pour la production
       copy:
         src: nginx_production.conf
         dest: /etc/nginx/nginx.conf
       notify: Restart nginx
       tags: nginx
 
-       - name: Installer MySQL sur les machines de production
+    - name: Installer MySQL sur les machines de production
       apt:
         name: mysql-server
         state: present
       tags: mysql
 
-       - name: Configurer MySQL sur les machines de production
+    - name: Configurer MySQL sur les machines de production
       template:
         src: files/mysql_production.cnf.j2
         dest: /etc/mysql/mysql.conf.d/mysqld.cnf
       notify: Restart MySQL
       tags: mysql
 
-       - name: Installer PHP sur les machines de production
+    - name: Installer PHP sur les machines de production
       apt:
         name: php-fpm
         state: present
       tags: php
 
-       - name: Configurer PHP sur les machines de production
+    - name: Configurer PHP sur les machines de production
       template:
         src: files/php_production.ini.j2
         dest: /etc/php/7.4/fpm/php.ini
       notify: Restart PHP-FPM
       tags: php
 
-       - name: Déployer l'application PHP Hello World sur les machines de production
+    - name: Déployer l'application PHP Hello World sur les machines de production
       template:
         src: files/hello_world.php.j2
         dest: /var/www/html/index.php
       tags: application
 
-- name: Déploiement de l'environnement de staging
-  hosts: staging
-  become: yes
-  tasks:
-    - name: Installer nginx sur la machine de staging
-      apt:
-        name: nginx
-        state: present
-      tags: nginx
-
-    - name: Copier le fichier de configuration nginx pour le staging
-      copy:
-        src: nginx_staging.conf
-        dest: /etc/nginx/nginx.conf
-      notify: Restart nginx
-      tags: nginx
-
-    - name: Installer MySQL sur la machine de staging
-      apt:
-        name: mysql-server
-        state: present
-      tags: mysql
-
-    - name: Configurer MySQL sur la machine de staging
-      template:
-        src: mysql_staging.cnf.j2
-        dest: /etc/mysql/mysql.conf.d/mysqld.cnf
-      notify: Restart MySQL
-      tags: mysql
-
-    - name: Installer PHP sur la machine de staging
-      apt:
-        name: php-fpm
-        state: present
-      tags: php
-
-    - name: Configurer PHP sur la machine de staging
-      template:
-        src: php_staging.ini.j2
-        dest: /etc/php/7.4/fpm/php.ini
-      notify: Restart PHP-FPM
-      tags: php
-
-    - name: Déployer l'application PHP Hello World sur la machine de staging
-      template:
-        src: hello_world.php.j2
-        dest: /var/www/html/index.php
-      tags: application
-
-
   handlers:
-  - name: Restart nginx
-    service:
-      name: nginx
-      state: restarted
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
 
-  - name: Restart MySQL
-    service:
-      name: mysql
-      state: restarted
-  - name: Restart PHP-FPM
-    service:
-      name: php-fpm
-      state: restarted
+    - name: Restart MySQL
+      service:
+        name: mysql
+        state: restarted
+
+    - name: Restart PHP-FPM
+      service:
+        name: php-fpm
+        state: restarted

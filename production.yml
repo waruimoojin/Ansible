@@ -34,6 +34,30 @@
       notify: Restart MySQL
       tags: mysql
 
+    - name: Démarrer le service MySQL
+      service:
+        name: mysql
+        state: started
+      tags: mysql
+
+    - name: Créer la base de données
+      mysql_db:
+        name: {{ db_name }}
+        state: present
+        login_user: root
+        login_password: "{{ AVJ9)7._P5pc'#Hh }}"
+      tags: mysql
+
+    - name: Créer l'utilisateur MySQL
+      mysql_user:
+        name: "{{ chakib }}"
+        password: "{{ dFy({79eL-cQ.V2T }}"
+        priv: "{{ Ansible }}.*:ALL"
+        state: present
+        login_user: root
+        login_password: "{{ z6x>5fnv(uQJba"M }}"
+      tags: mysql
+
     - name: Installer PHP sur les machines de production
       apt:
         name: php-fpm
