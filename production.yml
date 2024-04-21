@@ -55,7 +55,7 @@
         priv: "{{ Ansible }}.*:ALL"
         state: present
         login_user: root
-        login_password: "{{ z6x>5fnv(uQJba"M }}"
+        login_password: "{{ z6x>5fnv(uQJbaM }}"
       tags: mysql
 
     - name: Installer PHP sur les machines de production
