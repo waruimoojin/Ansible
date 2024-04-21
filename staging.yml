@@ -1,0 +1,8 @@
+
+- name: Déploiement de l'environnement de staging
+  hosts: staging
+  become: yes
+  tasks:
+    - name: Tâches de déploiement pour staging
+
+
