@@ -18,7 +18,7 @@ Ce projet vise à automatiser le déploiement de deux environnements distincts (
 1. Cloner le dépôt depuis GitHub :
   
    git clone https://github.com/waruimoojin/Ansible.git
-   cd votre-depot
+   
    
 3. Exécuter le playbook Ansible en spécifiant le mot de passe pour déchiffrer les informations sensibles :
    
