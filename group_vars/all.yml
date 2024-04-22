@@ -1,0 +1,11 @@
+
+db_name: "Ansible"
+db_user: "chakib"
+db_password: "AVJ9)7._P5pc'#Hh"
+db_root_password: "dFy({79eL-cQ.V2T"
+mysql_host: "localhost"
+mysql_user: "root"
+mysql_password: "dFy({79eL-cQ.V2T"
+server_name:
+  - 192.168.152.128
+  - 192.168.152.129
