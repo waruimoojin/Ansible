@@ -2,6 +2,7 @@
   hosts: production
   become: yes
   vars_files:
+    - group_vars/credentials.yml
     - group_vars/all.yml
   tasks:
     - name: Créer le répertoire PHP-FPM s'il n'existe pas
