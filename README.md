@@ -23,7 +23,9 @@ Ce projet vise à automatiser le déploiement de deux environnements distincts (
    
 3. Exécuter le playbook Ansible en spécifiant le mot de passe pour déchiffrer les informations sensibles :
    
-   ansible-playbook -i inventory production.yml --ask-become-pass --ask-vault-pass
+   ansible-playbook -i inventory/hosts.ini --extra-vars="env=staging" staging.yml --ask-become-pass --ask-vault-pass
+   ansible-playbook -i inventory/hosts.ini --extra-vars="env=production" production.yml --ask-become-pass --ask-vault-pass
+
    les mots de passe sont : 123456
    
 
