@@ -1,0 +1,20 @@
+---
+- name: Installer nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Suppresion configuration par default de nginx
+  file:
+    path: /etc/nginx/nginx.conf
+    state: absent
+  notify: restart nginx
+
+- name: Copier la configuration nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx

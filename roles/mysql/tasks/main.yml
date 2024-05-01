@@ -1,0 +1,51 @@
+- name: Installer MySQL sur les machines de production
+  apt:
+    name: mysql-server
+    state: present
+
+- name: Inclure les variables de configuration MySQL pour l'environnement de production
+  include_vars:
+    file: vars/production.yml
+  when: env == "production"
+
+- name: Inclure les variables de configuration MySQL pour l'environnement de staging
+  include_vars:
+    file: vars/staging.yml
+  when: env == "staging"
+
+- name: Configurer MySQL avec un fichier de configuration personnalisé
+  template:
+    src: files/mysql_production.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+  notify:
+    - Restart MySQL
+
+- name: Changer la méthode d'authentification pour root via Ansible
+  become: yes
+  become_method: sudo
+  command: mysql -u root -p'{{ root_password }}' --execute="ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '{{ root_password }}'; FLUSH PRIVILEGES;"
+
+- name: Créer l'utilisateur MySQL et attribuer des privilèges
+  mysql_user:
+    login_user: root
+    login_password: "{{ root_password }}"
+    name: "{{ user_username }}"
+    password: "{{ user_password }}"
+    priv: "{{ database_name }}.*:ALL"
+    host: "{{ database_host }}"
+    state: present
+
+- name: Créer la base de données
+  mysql_db:
+    name: "{{ database_name }}"
+    state: present
+    login_user: root
+    login_password: "{{ root_password }}"
+
+- name: Copier le fichier my.cnf sur les machines cibles
+  copy:
+    src: files/my.cnf
+    dest: /root/.my.cnf
+    owner: root
+    group: root
+    mode: "0600"

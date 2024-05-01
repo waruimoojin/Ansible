@@ -1,8 +1,9 @@
-
-- name: Déploiement de l'environnement de staging
+---
+- name: Configure Staging Environment
   hosts: staging
   become: yes
-  tasks:
-    - name: Tâches de déploiement pour staging
 
-
+  roles:
+    - mysql
+    - nginx
+    - php-fpm

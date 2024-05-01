@@ -1,0 +1,33 @@
+---
+- name: Créer le répertoire PHP-FPM s'il n'existe pas
+  file:
+    path: /etc/php/8.3/fpm
+    state: directory
+  tags: php
+
+- name: Installer PHP sur les machines de production
+  apt:
+    name: php-fpm
+    state: present
+  tags: php
+
+- name: Copier le fichier de configuration PHP
+  template:
+    src: php_production.ini.j2
+    dest: /etc/php/8.3/fpm/php.ini
+  notify: restart php-fpm
+  tags: php
+- name: Installer l'extension MySQLi (Ubuntu)
+  apt:
+    name: "php8.3-mysqli"
+    state: present
+
+- name: Déployer l'application PHP Hello World sur les machines de production
+  template:
+    src: ../templates/php_production.ini.j2
+    dest: /var/www/html/index.php
+  vars:
+    db_username: "{{ db_credentials_result.results[0].rows[0].0 }}"
+    db_password: "{{ db_credentials_result.results[0].rows[0].1 }}"
+    db_name: "{{ db_credentials_result.results[0].rows[0].2 }}"
+  tags: application

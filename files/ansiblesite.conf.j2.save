@@ -1,0 +1,21 @@
+server {
+    listen 80;
+    server_name {{ server_name }};
+
+    root {{ document_root }};
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock; # Assurez-vous que c'est le bon chemin vers votre socket PHP-FPM
+        try_files $uri =404;
+    }
+
+    error_log /var/log/nginx/{{ server_name }}_error.log;
+    access_log /var/log/nginx/{{ server_name }}_access.log;
+}

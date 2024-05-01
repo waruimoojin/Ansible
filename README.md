@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Projet DevOps - Déploiement Automatisé avec Ansible
 
 # Auteur
@@ -26,3 +27,6 @@ Ce projet vise à automatiser le déploiement de deux environnements distincts (
    les mots de passe sont : 123456
    
 
+=======
+# Ansible
+>>>>>>> d72b48a (project done)
