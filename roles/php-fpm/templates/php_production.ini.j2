@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        <?php
+            // Connexion à la base de données MySQL
+            $servername = "localhost";
+            $username = "{{ user_username }}";
+            $password = "{{ user_password }}";
+            $dbname = "{{ database_name }}";
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+
+            // Vérifier la connexion
+            if ($conn->connect_error) {
+                die("La connexion à la base de données a échoué : " . $conn->connect_error);
+            } else {
+                echo "Connexion à la base de données réussie. Base de données : " . $dbname;
+            }
+
+            $conn->close();
+        ?>
+    </body>
+</html>
