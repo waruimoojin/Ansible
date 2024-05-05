@@ -13,7 +13,7 @@ Ce projet vise à automatiser le déploiement de deux environnements distincts (
 - **production.yml**: Playbook Ansible  pour le déploiement du environnement Production.
 - **staging.yml**: Playbook Ansible pour le déploiement du environnement Staging.
 - **vars/credentials.yml**: Fichier chiffré contenant les informations sensibles comme les noms d'utilisateur et les mots de passe pour MySQL.
-- **files/**: Contient les fichiers de configuration et les templates utilisés par les rôles Ansible.
+- **roles/**: Contient les fichiers de configuration et les templates utilisés par les rôles Ansible.
 
 
 ## Instructions d'Utilisation
